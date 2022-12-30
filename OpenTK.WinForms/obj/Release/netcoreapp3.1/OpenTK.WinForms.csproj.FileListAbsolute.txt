@@ -1,0 +1,10 @@
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\bin\Release\netcoreapp3.1\OpenTK.WinForms.deps.json
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\bin\Release\netcoreapp3.1\OpenTK.WinForms.dll
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\bin\Release\netcoreapp3.1\OpenTK.WinForms.pdb
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\netcoreapp3.1\OpenTK.WinForms.csproj.AssemblyReference.cache
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\netcoreapp3.1\OpenTK.WinForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\netcoreapp3.1\OpenTK.WinForms.AssemblyInfoInputs.cache
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\netcoreapp3.1\OpenTK.WinForms.AssemblyInfo.cs
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\netcoreapp3.1\OpenTK.WinForms.csproj.CoreCompileInputs.cache
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\netcoreapp3.1\OpenTK.WinForms.dll
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\netcoreapp3.1\OpenTK.WinForms.pdb

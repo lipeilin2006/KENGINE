@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "1Zl3L61n6cFXejRYRl3fOap6wJY9o+rYKd+rkNlrPfPSyc8brFC8dsgMYVm+aM4aBfvlrHLT05yPxE/YPUR9sw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\29530\\source\\repos\\KENGINE\\OpenTK.WinForms\\OpenTK.WinForms.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\29530\\.nuget\\packages\\opentk.core\\4.7.4\\opentk.core.4.7.4.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\opentk.graphics\\4.7.4\\opentk.graphics.4.7.4.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\opentk.mathematics\\4.7.4\\opentk.mathematics.4.7.4.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\opentk.redist.glfw\\3.3.7.27\\opentk.redist.glfw.3.3.7.27.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\opentk.windowing.common\\4.7.4\\opentk.windowing.common.4.7.4.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\opentk.windowing.desktop\\4.7.4\\opentk.windowing.desktop.4.7.4.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.7.4\\opentk.windowing.graphicslibraryframework.4.7.4.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\29530\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+  ],
+  "logs": []
+}

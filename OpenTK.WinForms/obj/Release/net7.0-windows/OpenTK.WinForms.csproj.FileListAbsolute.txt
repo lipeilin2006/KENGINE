@@ -1,0 +1,12 @@
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\bin\Release\net7.0-windows\OpenTK.WinForms.deps.json
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\bin\Release\net7.0-windows\OpenTK.WinForms.dll
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\bin\Release\net7.0-windows\OpenTK.WinForms.pdb
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\OpenTK.WinForms.csproj.AssemblyReference.cache
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\OpenTK.WinForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\OpenTK.WinForms.AssemblyInfoInputs.cache
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\OpenTK.WinForms.AssemblyInfo.cs
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\OpenTK.WinForms.csproj.CoreCompileInputs.cache
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\OpenTK.WinForms.dll
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\refint\OpenTK.WinForms.dll
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\OpenTK.WinForms.pdb
+C:\Users\29530\Downloads\GLControl-master\GLControl-master\OpenTK.WinForms\obj\Release\net7.0-windows\ref\OpenTK.WinForms.dll
