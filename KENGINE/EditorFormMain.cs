@@ -52,7 +52,7 @@ namespace OpenTK.WinForms.TestForm
             f.GetComponent<Transform>().position.y = -2;
             f.GetComponent<Transform>().sizeDelta.x = 10;
             f.GetComponent<Transform>().sizeDelta.z = 10;
-            MeshReneder fm = f.AddComponent<MeshReneder>();A game engine based on .net 7,and will continue 
+            MeshReneder fm = f.AddComponent<MeshReneder>();
             fm.mesh = new CubeMesh();
 
             {
