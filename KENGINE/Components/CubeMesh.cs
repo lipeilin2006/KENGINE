@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KENGINE.Components
+namespace KENGINE
 {
-    public class CubeMesh
+    public class CubeMesh : Mesh
     {
         /*
         private readonly float[] vertices =
@@ -56,7 +56,7 @@ namespace KENGINE.Components
             -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
             -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
         };*/
-        public void Draw(Vector3 position, Quaternion rotation, SizeDelta sizeDelta)
+        public override void Draw(Vector3 position, Quaternion rotation, SizeDelta sizeDelta)
         {
             /*
             Transform t = gameObject.GetComponent<Transform>();

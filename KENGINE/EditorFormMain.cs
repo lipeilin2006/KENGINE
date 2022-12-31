@@ -9,12 +9,13 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace OpenTK.WinForms.TestForm
+namespace KENGINE
 {
 	public partial class EditorFormMain : Form
 	{
         private Timer timer = null!;
         static TreeView sceneTree;
+        float offsetx, offsety = 0;
         public EditorFormMain()
 		{
 			InitializeComponent();
@@ -29,7 +30,7 @@ namespace OpenTK.WinForms.TestForm
             //GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
 
             //Call Awake
-            KENGINE.KENGINE.OnAwake();
+            KENGINE.OnAwake();
 
             //Add GameObject
             GameObject cam = new GameObject("Camera");
@@ -88,30 +89,35 @@ namespace OpenTK.WinForms.TestForm
 
         private void OnUpdate()
         {
-            if (KENGINE.Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(0, 0, 0.5f));
             }
-            else if (KENGINE.Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S))
             {
                 Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(0, 0, -0.5f));
             }
-            if (KENGINE.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
                 Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(0.5f, 0, 0));
             }
-            else if (KENGINE.Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D))
             {
                 Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(-0.5f, 0, 0));
             }
-
-            if (KENGINE.Input.GetMouseButton(KENGINE.MouseButton.Right))
+            if (Input.GetMouseButtonDown(MouseButton.Right))
             {
-                
+                offsetx = Input.GetMouseX();
+                offsety = Input.GetMouseY();
+            }
+            if (Input.GetMouseButton(MouseButton.Right))
+            {
+                Camera.main.gameObject.transform.rotation.y = (offsetx - Input.GetMouseX()) / glControl.Width * 100;
+                Camera.main.gameObject.transform.rotation.x = (Input.GetMouseY() - offsety) / glControl.Height * 100;
             }
             glControl.MakeCurrent();
 
-            KENGINE.KENGINE.OnUpdate();
+            KENGINE.OnUpdate();
             
             glControl.SwapBuffers();
         }
@@ -119,7 +125,7 @@ namespace OpenTK.WinForms.TestForm
         public static void GenerateSceneTree()
         {
             sceneTree.Nodes[0].Nodes.Clear();
-            foreach (GameObject o in KENGINE.KENGINE.gameObjects)
+            foreach (GameObject o in KENGINE.gameObjects)
             {
                 TreeNode n = sceneTree.Nodes[0].Nodes.Add(o.name);
                 if (o.HasChild())
@@ -164,13 +170,13 @@ namespace OpenTK.WinForms.TestForm
             {
                 Debug.WriteLine(e.KeyCode);
                 KeyCode k = (KeyCode)e.KeyValue;
-                if (KENGINE.Input.currentKeys.ContainsKey(k))
+                if (Input.currentKeys.ContainsKey(k))
                 {
-                    KENGINE.Input.currentKeys[k] = true;
+                    Input.currentKeys[k] = true;
                 }
                 else
                 {
-                    KENGINE.Input.currentKeys.Add((KeyCode)e.KeyValue, true);
+                    Input.currentKeys.Add((KeyCode)e.KeyValue, true);
                 }
             }
         }
@@ -180,13 +186,13 @@ namespace OpenTK.WinForms.TestForm
             if (tabControl1.TabIndex == 1)
             {
                 KeyCode k = (KeyCode)e.KeyValue;
-                if (KENGINE.Input.currentKeys.ContainsKey(k))
+                if (Input.currentKeys.ContainsKey(k))
                 {
-                    KENGINE.Input.currentKeys[k] = false;
+                    Input.currentKeys[k] = false;
                 }
                 else
                 {
-                    KENGINE.Input.currentKeys.Add((KeyCode)e.KeyValue, false);
+                    Input.currentKeys.Add((KeyCode)e.KeyValue, false);
                 }
             }
         }
@@ -194,27 +200,27 @@ namespace OpenTK.WinForms.TestForm
         private void glControl_MouseDown(object sender, MouseEventArgs e)
         {
             tabControl1.Focus();
-            KENGINE.MouseButton mb = (KENGINE.MouseButton)e.Button;
-            if (KENGINE.Input.currentMouse.ContainsKey((KENGINE.MouseButton)e.Button))
+            MouseButton mb = (MouseButton)e.Button;
+            if (Input.currentMouse.ContainsKey((MouseButton)e.Button))
             {
-                KENGINE.Input.currentMouse[mb] = true;
+                Input.currentMouse[mb] = true;
             }
             else
             {
-                KENGINE.Input.currentMouse.Add(mb, true);
+                Input.currentMouse.Add(mb, true);
             }
         }
 
         private void glControl_MouseUp(object sender, MouseEventArgs e)
         {
-            KENGINE.MouseButton mb = (KENGINE.MouseButton)e.Button;
-            if (KENGINE.Input.currentMouse.ContainsKey((KENGINE.MouseButton)e.Button))
+            MouseButton mb = (MouseButton)e.Button;
+            if (Input.currentMouse.ContainsKey((MouseButton)e.Button))
             {
-                KENGINE.Input.currentMouse[mb] = false;
+                Input.currentMouse[mb] = false;
             }
             else
             {
-                KENGINE.Input.currentMouse.Add(mb, false);
+                Input.currentMouse.Add(mb, false);
             }
         }
 
@@ -237,8 +243,8 @@ namespace OpenTK.WinForms.TestForm
 
         private void glControl_MouseMove(object sender, MouseEventArgs e)
         {
-            KENGINE.Input.mouseX = e.X;
-            KENGINE.Input.mouseY = e.Y;
+            Input.mouseX = e.X;
+            Input.mouseY = e.Y;
         }
     }
 }
