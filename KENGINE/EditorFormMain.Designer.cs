@@ -1,4 +1,5 @@
-﻿namespace OpenTK.WinForms.TestForm
+﻿using OpenTK.WinForms;
+namespace KENGINE
 {
 	partial class EditorFormMain
 	{
