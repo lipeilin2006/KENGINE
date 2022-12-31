@@ -39,12 +39,12 @@ namespace OpenTK.WinForms.TestForm
 
             GameObject o1 = new GameObject("Cube1");
             o1.GetComponent<Transform>().position.x = -1;
-            MeshReneder o1m = o1.AddComponent<MeshReneder>();
+            MeshRender o1m = o1.AddComponent<MeshRender>();
             o1m.mesh = new CubeMesh();
 
             GameObject o2 = new GameObject("Cube2");
             o2.GetComponent<Transform>().position.x = 1;
-            MeshReneder o2m = o2.AddComponent<MeshReneder>();
+            MeshRender o2m = o2.AddComponent<MeshRender>();
             o2m.mesh = new CubeMesh();
 
             GameObject f = new GameObject("Floor");
@@ -52,7 +52,7 @@ namespace OpenTK.WinForms.TestForm
             f.GetComponent<Transform>().position.y = -2;
             f.GetComponent<Transform>().sizeDelta.x = 10;
             f.GetComponent<Transform>().sizeDelta.z = 10;
-            MeshReneder fm = f.AddComponent<MeshReneder>();
+            MeshRender fm = f.AddComponent<MeshRender>();
             fm.mesh = new CubeMesh();
 
             {
@@ -103,6 +103,11 @@ namespace OpenTK.WinForms.TestForm
             else if (KENGINE.Input.GetKey(KeyCode.D))
             {
                 Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(-0.5f, 0, 0));
+            }
+
+            if (KENGINE.Input.GetMouseButton(KENGINE.MouseButton.Right))
+            {
+                
             }
             glControl.MakeCurrent();
 
@@ -155,28 +160,61 @@ namespace OpenTK.WinForms.TestForm
 
         private void tabControl1_KeyDown(object sender, KeyEventArgs e)
         {
-            Debug.WriteLine(e.KeyCode);
-            KeyCode k = (KeyCode)e.KeyValue;
-            if (KENGINE.Input.currentKeys.ContainsKey(k))
+            if (tabControl1.TabIndex == 1)
             {
-                KENGINE.Input.currentKeys[k] = true;
-            }
-            else
-            {
-                KENGINE.Input.currentKeys.Add((KeyCode)e.KeyValue, true);
+                Debug.WriteLine(e.KeyCode);
+                KeyCode k = (KeyCode)e.KeyValue;
+                if (KENGINE.Input.currentKeys.ContainsKey(k))
+                {
+                    KENGINE.Input.currentKeys[k] = true;
+                }
+                else
+                {
+                    KENGINE.Input.currentKeys.Add((KeyCode)e.KeyValue, true);
+                }
             }
         }
 
         private void tabControl1_KeyUp(object sender, KeyEventArgs e)
         {
-            KeyCode k = (KeyCode)e.KeyValue;
-            if (KENGINE.Input.currentKeys.ContainsKey(k))
+            if (tabControl1.TabIndex == 1)
             {
-                KENGINE.Input.currentKeys[k] = false;
+                KeyCode k = (KeyCode)e.KeyValue;
+                if (KENGINE.Input.currentKeys.ContainsKey(k))
+                {
+                    KENGINE.Input.currentKeys[k] = false;
+                }
+                else
+                {
+                    KENGINE.Input.currentKeys.Add((KeyCode)e.KeyValue, false);
+                }
+            }
+        }
+
+        private void glControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            tabControl1.Focus();
+            KENGINE.MouseButton mb = (KENGINE.MouseButton)e.Button;
+            if (KENGINE.Input.currentMouse.ContainsKey((KENGINE.MouseButton)e.Button))
+            {
+                KENGINE.Input.currentMouse[mb] = true;
             }
             else
             {
-                KENGINE.Input.currentKeys.Add((KeyCode)e.KeyValue, false);
+                KENGINE.Input.currentMouse.Add(mb, true);
+            }
+        }
+
+        private void glControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            KENGINE.MouseButton mb = (KENGINE.MouseButton)e.Button;
+            if (KENGINE.Input.currentMouse.ContainsKey((KENGINE.MouseButton)e.Button))
+            {
+                KENGINE.Input.currentMouse[mb] = false;
+            }
+            else
+            {
+                KENGINE.Input.currentMouse.Add(mb, false);
             }
         }
 
@@ -195,6 +233,12 @@ namespace OpenTK.WinForms.TestForm
                     contextMenuStrip1.Items.Add("Delete");
                 }
             }
+        }
+
+        private void glControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            KENGINE.Input.mouseX = e.X;
+            KENGINE.Input.mouseY = e.Y;
         }
     }
 }
