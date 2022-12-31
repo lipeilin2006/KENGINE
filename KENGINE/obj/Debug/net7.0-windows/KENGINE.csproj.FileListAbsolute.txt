@@ -65,4 +65,4 @@ C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0-windows\refint\KENG
 C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0-windows\KENGINE.pdb
 C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0-windows\KENGINE.genruntimeconfig.cache
 C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0-windows\ref\KENGINE.dll
-C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0-windows\OpenTK.WinForms.TestForm.EditorFormMain.resources
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0-windows\KENGINE.EditorFormMain.resources

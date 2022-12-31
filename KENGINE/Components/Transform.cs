@@ -20,6 +20,10 @@ namespace KENGINE
         {
             return Quaternion.FromEulerAngles(rotation.x / 180 * (float)Math.PI, rotation.y / 180 * (float)Math.PI, rotation.z / 180 * (float)Math.PI);
         }
+        public Vector3 GetEuler()
+        {
+            return new Vector3(rotation.x / 180 * (float)Math.PI, rotation.y / 180 * (float)Math.PI, rotation.z / 180 * (float)Math.PI);
+        }
         public void SetPosition(Vector3 v)
         {
             position.x = v.X;
@@ -39,7 +43,87 @@ namespace KENGINE
     }
     public class Rotation
     {
-        public float x, y, z;
+        private float X,Y,Z;
+        
+        public float x
+        {
+            get
+            {
+                return X;
+            }
+            set
+            {
+                while (true)
+                {
+                    if (value > 180)
+                    {
+                        value -= 360;
+                    }
+                    else if (value < -180)
+                    {
+                        value += 360;
+                    }
+                    else
+                    {
+                        X = value;
+                        return;
+                    }
+                };
+            }
+        }
+        public float y
+        {
+            get
+            {
+                return Y;
+            }
+            set
+            {
+                while (true)
+                {
+                    if (value > 180)
+                    {
+                        value -= 360;
+                    }
+                    else if (value < -180)
+                    {
+                        value += 360;
+                    }
+                    else
+                    {
+                        Y = value;
+                        return;
+                    }
+                };
+            }
+        }
+        public float z
+        {
+            get
+            {
+                return Z;
+            }
+            set
+            {
+                while (true)
+                {
+                    if (value > 180)
+                    {
+                        value -= 360;
+                    }
+                    else if (value < -180)
+                    {
+                        value += 360;
+                    }
+                    else
+                    {
+                        Z = value;
+                        return;
+                    }
+                };
+            }
+        }
+        
         public Rotation(float x, float y, float z)
         {
             this.x = x;
