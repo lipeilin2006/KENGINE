@@ -5,13 +5,14 @@ namespace KENGINE
     public class Input
     {
         public static float mouseX, mouseY = 0;
+        public static float mouseOffsetX, mouseOffsetY = 0;
         public static Dictionary<KeyCode, bool> lastKeys = new Dictionary<KeyCode, bool>();
         public static Dictionary<KeyCode, bool> currentKeys = new Dictionary<KeyCode, bool>();
 
         public static Dictionary<MouseButton, bool> lastMouse = new Dictionary<MouseButton, bool>();
         public static Dictionary<MouseButton, bool> currentMouse = new Dictionary<MouseButton, bool>();
 
-        public static void Clear()
+        public static void Update()
         {
             lastKeys = new Dictionary<KeyCode, bool>();
             foreach(KeyCode key in currentKeys.Keys)
@@ -24,6 +25,8 @@ namespace KENGINE
             {
                 lastMouse.Add(mb, currentMouse[mb]);
             }
+            mouseOffsetX = mouseX;
+            mouseOffsetY = mouseY;
         }
         public static bool GetKeyDown(KeyCode keyCode)
         {
@@ -138,6 +141,14 @@ namespace KENGINE
         public static float GetMouseY()
         {
             return mouseY;
+        }
+        public static float GetMouseDeltaX()
+        {
+            return mouseX - mouseOffsetX;
+        }
+        public static float GetMouseDeltaY()
+        {
+            return mouseY - mouseOffsetY;
         }
     }
     public enum KeyCode

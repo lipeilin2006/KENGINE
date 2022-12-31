@@ -1,6 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,38 @@ namespace KENGINE
 {
     public class Transform : Component
     {
+        //World Space
         public Position position = new Position(0, 0, 0);
         public Rotation rotation = new Rotation(0, 0, 0);
         public SizeDelta sizeDelta = new SizeDelta(1, 1, 1);
+
+        //Local Space
+        public Vector3 forward
+        {
+            get
+            {
+                Vector3 f;
+                f.X = MathF.Cos(rotation.x / 180 * (float)Math.PI) * MathF.Cos(rotation.y / 180 * (float)Math.PI);
+                f.Y = MathF.Sin(rotation.x / 180 * (float)Math.PI);
+                f.Z = MathF.Cos(rotation.x / 180 * (float)Math.PI) * MathF.Sin(rotation.y / 180 * (float)Math.PI);
+                return Vector3.Normalize(f);
+            }
+        }
+        public Vector3 up
+        {
+            get
+            {
+                return Vector3.Normalize(Vector3.Cross(right, forward));
+            }
+        }
+        public Vector3 right
+        {
+            get
+            {
+                return Vector3.Normalize(Vector3.Cross(forward, Vector3.UnitY));
+            }
+        }
+
         public Vector3 GetPosition()
         {
             return new Vector3(position.x, position.y, position.z);
