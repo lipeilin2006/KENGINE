@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.WinForms;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
+﻿using System.Collections.Generic;
 
 namespace KENGINE
 {
     public class Input
     {
+        public static float mouseX, mouseY = 0;
         public static Dictionary<KeyCode, bool> lastKeys = new Dictionary<KeyCode, bool>();
         public static Dictionary<KeyCode, bool> currentKeys = new Dictionary<KeyCode, bool>();
+
+        public static Dictionary<MouseButton, bool> lastMouse = new Dictionary<MouseButton, bool>();
+        public static Dictionary<MouseButton, bool> currentMouse = new Dictionary<MouseButton, bool>();
 
         public static void Clear()
         {
             lastKeys = new Dictionary<KeyCode, bool>();
-            foreach(KeyCode key in lastKeys.Keys)
+            foreach(KeyCode key in currentKeys.Keys)
             {
                 lastKeys.Add(key, currentKeys[key]);
+            }
+
+            lastMouse = new Dictionary<MouseButton, bool>();
+            foreach (MouseButton mb in currentMouse.Keys)
+            {
+                lastMouse.Add(mb, currentMouse[mb]);
             }
         }
         public static bool GetKeyDown(KeyCode keyCode)
@@ -80,15 +80,64 @@ namespace KENGINE
         }
         public static bool GetMouseButtonDown(MouseButton mouseButton)
         {
+            if (currentMouse.ContainsKey(mouseButton))
+            {
+                if (currentMouse[mouseButton])
+                {
+                    if (lastMouse.ContainsKey(mouseButton))
+                    {
+                        if (!lastMouse[mouseButton])
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
             return false;
         }
         public static bool GetMouseButton(MouseButton mouseButton)
         {
+            if (currentMouse.ContainsKey(mouseButton))
+            {
+                if (currentMouse[mouseButton])
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public static bool GetMouseButtonUp(MouseButton mouseButton)
         {
+            if (lastMouse.ContainsKey(mouseButton))
+            {
+                if (lastMouse[mouseButton])
+                {
+                    if (currentMouse.ContainsKey(mouseButton))
+                    {
+                        if (!currentMouse[mouseButton])
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
             return false;
+        }
+        public static float GetMouseX()
+        {
+            return mouseX;
+        }
+        public static float GetMouseY()
+        {
+            return mouseY;
         }
     }
     public enum KeyCode
@@ -216,17 +265,11 @@ namespace KENGINE
     }
     public enum MouseButton
     {
-        Button1 = 0,
-        Button2 = 1,
-        Button3 = 2,
-        Button4 = 3,
-        Button5 = 4,
-        Button6 = 5,
-        Button7 = 6,
-        Button8 = 7,
-        Left = 0,
-        Right = 1,
-        Middle = 2,
-        Last = 7
+        None = 0,
+        Left = 1048576,
+        Right = 2097152,
+        Middle = 4194304,
+        XButton1 = 8388608,
+        XButton2 = 16777216
     }
 }
