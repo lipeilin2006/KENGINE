@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using KENGINE;
 using OpenTK.Graphics.OpenGL;
@@ -15,7 +16,8 @@ namespace KENGINE
 	{
         private Timer timer = null!;
         static TreeView sceneTree;
-        float offsetx, offsety = 0;
+
+        float camRotX, camRotY = 0;
         public EditorFormMain()
 		{
 			InitializeComponent();
@@ -35,24 +37,25 @@ namespace KENGINE
             //Add GameObject
             GameObject cam = new GameObject("Camera");
             Camera.main = cam.AddComponent<Camera>();
-            cam.GetComponent<Transform>().position.z = -5;
-            cam.GetComponent<Transform>().position.y = 0;
+            cam.transform.position.z = -5;
+            cam.transform.position.y = 0;
+            cam.transform.rotation.y = 90;
 
             GameObject o1 = new GameObject("Cube1");
-            o1.GetComponent<Transform>().position.x = -1;
+            o1.transform.position.x = -1;
             MeshRender o1m = o1.AddComponent<MeshRender>();
             o1m.mesh = new CubeMesh();
 
             GameObject o2 = new GameObject("Cube2");
-            o2.GetComponent<Transform>().position.x = 1;
+            o2.transform.position.x = 1;
             MeshRender o2m = o2.AddComponent<MeshRender>();
             o2m.mesh = new CubeMesh();
 
             GameObject f = new GameObject("Floor");
-            f.GetComponent<Transform>().position.x = 0;
-            f.GetComponent<Transform>().position.y = -2;
-            f.GetComponent<Transform>().sizeDelta.x = 10;
-            f.GetComponent<Transform>().sizeDelta.z = 10;
+            f.transform.position.x = 0;
+            f.transform.position.y = -2;
+            f.transform.sizeDelta.x = 10;
+            f.transform.sizeDelta.z = 10;
             MeshRender fm = f.AddComponent<MeshRender>();
             fm.mesh = new CubeMesh();
 
@@ -89,32 +92,43 @@ namespace KENGINE
 
         private void OnUpdate()
         {
+            camRotX = Camera.main.gameObject.transform.rotation.x;
+            camRotY = Camera.main.gameObject.transform.rotation.y;
             if (Input.GetKey(KeyCode.W))
             {
-                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(0, 0, 0.5f));
+                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.forward * 0.5f);
             }
             else if (Input.GetKey(KeyCode.S))
             {
-                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(0, 0, -0.5f));
+                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() - Camera.main.gameObject.transform.forward * 0.5f);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(0.5f, 0, 0));
+                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() - Camera.main.gameObject.transform.right * 0.5f);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.GetRotation() * new Vector3(-0.5f, 0, 0));
+                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.right * 0.5f);
             }
-            if (Input.GetMouseButtonDown(MouseButton.Right))
+            if (Input.GetKey(KeyCode.E))
             {
-                offsetx = Input.GetMouseX();
-                offsety = Input.GetMouseY();
+                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() + Camera.main.gameObject.transform.up * 0.5f);
             }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                Camera.main.gameObject.transform.SetPosition(Camera.main.gameObject.transform.GetPosition() - Camera.main.gameObject.transform.up * 0.5f);
+            }
+
+
             if (Input.GetMouseButton(MouseButton.Right))
             {
-                Camera.main.gameObject.transform.rotation.y = (offsetx - Input.GetMouseX()) / glControl.Width * 100;
-                Camera.main.gameObject.transform.rotation.x = (Input.GetMouseY() - offsety) / glControl.Height * 100;
+                camRotY += Input.GetMouseDeltaX();
+                camRotX -= Input.GetMouseDeltaY();
+                Camera.main.gameObject.transform.rotation.y = camRotY;
+                Camera.main.gameObject.transform.rotation.x = camRotX;
             }
+
+            //General Update
             glControl.MakeCurrent();
 
             KENGINE.OnUpdate();

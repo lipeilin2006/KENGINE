@@ -50,7 +50,7 @@ namespace KENGINE
         }
         public static void OnUpdate()
         {
-            Input.Clear();
+            Input.Update();
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             GameObject.Find("Cube1").GetComponent<Transform>().rotation.y += 1;
