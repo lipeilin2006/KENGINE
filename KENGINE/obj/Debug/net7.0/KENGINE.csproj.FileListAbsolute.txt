@@ -1,0 +1,12 @@
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\KENGINE.csproj.AssemblyReference.cache
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\KENGINE.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\KENGINE.AssemblyInfoInputs.cache
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\KENGINE.AssemblyInfo.cs
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\KENGINE.csproj.CoreCompileInputs.cache
+C:\Users\29530\source\repos\KENGINE\KENGINE\bin\Debug\net7.0\KENGINE.deps.json
+C:\Users\29530\source\repos\KENGINE\KENGINE\bin\Debug\net7.0\KENGINE.dll
+C:\Users\29530\source\repos\KENGINE\KENGINE\bin\Debug\net7.0\KENGINE.pdb
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\KENGINE.dll
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\refint\KENGINE.dll
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\KENGINE.pdb
+C:\Users\29530\source\repos\KENGINE\KENGINE\obj\Debug\net7.0\ref\KENGINE.dll

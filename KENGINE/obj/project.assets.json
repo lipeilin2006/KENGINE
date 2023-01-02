@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0-windows7.0": {
+    "net7.0": {
       "OpenTK/4.7.4": {
         "type": "package",
         "dependencies": {
@@ -201,23 +201,6 @@
             "related": ".xml"
           }
         }
-      },
-      "OpenTK.WinForms/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "dependencies": {
-          "OpenTK.Graphics": "4.7.4",
-          "OpenTK.Windowing.Desktop": "4.7.4"
-        },
-        "compile": {
-          "bin/placeholder/OpenTK.WinForms.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/OpenTK.WinForms.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WindowsForms"
-        ]
       }
     }
   },
@@ -418,17 +401,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "OpenTK.WinForms/1.0.0": {
-      "type": "project",
-      "path": "../OpenTK.WinForms/OpenTK.WinForms.csproj",
-      "msbuildProject": "../OpenTK.WinForms/OpenTK.WinForms.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0-windows7.0": [
-      "OpenTK >= 4.7.4",
-      "OpenTK.WinForms >= 1.0.0"
+    "net7.0": [
+      "OpenTK >= 4.7.4"
     ]
   },
   "packageFolders": {
@@ -452,20 +429,16 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0-windows"
+        "net7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0-windows7.0": {
-          "targetAlias": "net7.0-windows",
-          "projectReferences": {
-            "C:\\Users\\29530\\source\\repos\\KENGINE\\OpenTK.WinForms\\OpenTK.WinForms.csproj": {
-              "projectPath": "C:\\Users\\29530\\source\\repos\\KENGINE\\OpenTK.WinForms\\OpenTK.WinForms.csproj"
-            }
-          }
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -475,8 +448,8 @@
       }
     },
     "frameworks": {
-      "net7.0-windows7.0": {
-        "targetAlias": "net7.0-windows",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "OpenTK": {
             "target": "Package",
@@ -497,9 +470,6 @@
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
-          },
-          "Microsoft.WindowsDesktop.App.WindowsForms": {
-            "privateAssets": "none"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
