@@ -10,55 +10,114 @@ namespace KENGINE
 {
     public class Transform : Component
     {
-        //World Space
-        public Position position = new Position(0, 0, 0);
-        public Rotation rotation = new Rotation(0, 0, 0);
-        public SizeDelta sizeDelta = new SizeDelta(1, 1, 1);
+        public Position position {
+            get
+            {
+                if (parent == null)
+                {
+                    return localP;
+                }
+                else
+                {
+                    Vector3 v = parent.position.ToVector3() + parent.rotation.ToQuaternion() * localPosition.ToVector3();
+                    return new Position(v.X, v.Y, v.Z);
+                }
+            }
+            set
+            {
+                localP = value;
+            }
+        }
+        public Position localPosition
+        {
+            get
+            {
+                return localP;
+            }
+            set
+            {
+                localP = value;
+            }
+        }
+        private Position localP = new Position(0, 0, 0);
 
-        //Local Space
+
+        public Rotation rotation
+        {
+            get
+            {
+                if (parent == null)
+                {
+                    return localR;
+                }
+                else
+                {
+                    Vector3 v = (parent.rotation.ToQuaternion() * localR.ToQuaternion()).ToEulerAngles();
+                    return new Rotation(v.X, v.Y, v.Z);
+                }
+            }
+            private set { }
+        }
+        public Rotation localRotation {
+            get
+            {
+                return localR;
+            }
+            set
+            {
+                localR = value;
+            }
+        }
+
+        private Rotation localR = new Rotation(0, 0, 0);
+
+
+        public SizeDelta sizeDelta = new SizeDelta(1, 1, 1);
+        public Transform? parent = null;
+        public List<Transform> childs { get; private set; } = new List<Transform>();
+
         public Vector3 forward
         {
             get
             {
-                Vector3 f;
-                f.X = MathF.Cos(rotation.x / 180 * (float)Math.PI) * MathF.Cos(rotation.y / 180 * (float)Math.PI);
-                f.Y = MathF.Sin(rotation.x / 180 * (float)Math.PI);
-                f.Z = MathF.Cos(rotation.x / 180 * (float)Math.PI) * MathF.Sin(rotation.y / 180 * (float)Math.PI);
-                return Vector3.Normalize(f);
+                return Vector3.Normalize(rotation.ToQuaternion() * new Vector3(0, 0, 1));
             }
+            private set { }
         }
         public Vector3 up
         {
             get
             {
-                return Vector3.Normalize(Vector3.Cross(right, forward));
+                return Vector3.Normalize(rotation.ToQuaternion() *new Vector3(0, 1, 0));
             }
+            private set { }
         }
         public Vector3 right
         {
             get
             {
-                return Vector3.Normalize(Vector3.Cross(forward, Vector3.UnitY));
+                return Vector3.Normalize(rotation.ToQuaternion() * new Vector3(-1, 0, 0));
             }
-        }
-
-        public Vector3 GetPosition()
-        {
-            return new Vector3(position.x, position.y, position.z);
-        }
-        public Quaternion GetRotation()
-        {
-            return Quaternion.FromEulerAngles(rotation.x / 180 * (float)Math.PI, rotation.y / 180 * (float)Math.PI, rotation.z / 180 * (float)Math.PI);
-        }
-        public Vector3 GetEuler()
-        {
-            return new Vector3(rotation.x / 180 * (float)Math.PI, rotation.y / 180 * (float)Math.PI, rotation.z / 180 * (float)Math.PI);
+            private set { }
         }
         public void SetPosition(Vector3 v)
         {
             position.x = v.X;
             position.y = v.Y;
             position.z = v.Z;
+        }
+        public bool HasChild()
+        {
+            return childs.Count > 0;
+        }
+        public void Child(Transform child)
+        {
+            childs.Add(child);
+            child.parent = this;
+        }
+        public Transform GetChild(int id)
+        {
+            return childs[id];
         }
     }
     public class Position
@@ -69,6 +128,10 @@ namespace KENGINE
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+        public Vector3 ToVector3()
+        {
+            return new Vector3(x, y, z);
         }
     }
     public class Rotation
@@ -159,6 +222,14 @@ namespace KENGINE
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+        public Quaternion ToQuaternion()
+        {
+            return Quaternion.FromEulerAngles(x, y, z);
+        }
+        public Vector3 ToEuler()
+        {
+            return new Vector3(x / 180 * (float)Math.PI, y / 180 * (float)Math.PI, z / 180 * (float)Math.PI);
         }
     }
     public class SizeDelta

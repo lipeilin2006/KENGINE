@@ -1,28 +1,15 @@
-﻿using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.WinForms;
-using System.Diagnostics;
-
-namespace KENGINE
+﻿namespace KENGINE
 {
     public class GameObject
     {
         public string name { get; set; }
         public List<Component> components { get; private set; } = new List<Component>();
-        public List<GameObject> childs { get; private set; } = new List<GameObject>();
         public Transform transform { get; set; }
         public GameObject(string name)
         {
             this.name = name;
             transform = AddComponent<Transform>();
             KENGINE.gameObjects.Add(this);
-            EditorFormMain.GenerateSceneTree();
         }
         public static GameObject Find(string name)
         {
@@ -62,10 +49,6 @@ namespace KENGINE
                 }
             }
             return comps.ToArray();
-        }
-        public bool HasChild()
-        {
-            return childs.Count > 0;
         }
         public void RemoveComponent<T>() where T : Component
         {
