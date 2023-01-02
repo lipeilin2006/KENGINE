@@ -14,7 +14,7 @@ namespace KENGINE
             if (mesh != null)
             {
                 Transform transform = gameObject.GetComponent<Transform>();
-                mesh.Draw(transform.GetPosition(), transform.GetRotation(), transform.sizeDelta);
+                mesh.Draw(transform.position.ToVector3(), transform.rotation.ToQuaternion(), transform.sizeDelta);
             }
         }
     }

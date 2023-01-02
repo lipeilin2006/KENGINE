@@ -53,8 +53,8 @@ namespace KENGINE
             Input.Update();
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            GameObject.Find("Cube1").GetComponent<Transform>().rotation.y += 1;
-            GameObject.Find("Cube2").GetComponent<Transform>().rotation.y -= 1;
+            GameObject.Find("Cube1").transform.localRotation.y += 0.1f;
+            GameObject.Find("Cube2").transform.localRotation.y -= 0.1f;
 
             foreach (GameObject o in gameObjects)
             {
