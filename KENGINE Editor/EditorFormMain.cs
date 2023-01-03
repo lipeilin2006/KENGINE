@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
 using KENGINE;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenTK.Mathematics;
 
 namespace KENGINE_Editor
 {
@@ -27,13 +26,14 @@ namespace KENGINE_Editor
             //KENGINE.KENGINE.LoadShader("Default", File.ReadAllText(".\\Shaders\\Default.vert"), File.ReadAllText(".\\Shaders\\Default.frag"));
             //GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
 
+            //Bind Log
+            Debug.OnLog = Log;
             //Call Awake
             KENGINE.KENGINE.OnAwake();
 
             GameObject viewer = new GameObject("viewer");
-            viewer.transform.position.z = -5;
-            viewer.transform.position.y = 0;
-            viewer.transform.rotation.y = 0;
+            viewer.transform.position = new Vector3(0, 0, -5);
+            viewer.transform.rotation = new Vector3(0, 0, 0);
 
             //Add GameObject
             GameObject cam = new GameObject("Camera");
@@ -42,20 +42,19 @@ namespace KENGINE_Editor
             viewer.transform.Child(cam.transform);
 
             GameObject o1 = new GameObject("Cube1");
-            o1.transform.position.x = 0;
+            o1.transform.position = new Vector3(0, 0, 0);
             MeshRender o1m = o1.AddComponent<MeshRender>();
             o1m.mesh = new CubeMesh();
             
             GameObject o2 = new GameObject("Cube2");
-            o2.transform.localPosition.x = 2;
+            o2.transform.localPosition = new Vector3(0, 0, 2);
             MeshRender o2m = o2.AddComponent<MeshRender>();
             o2m.mesh = new CubeMesh();
 
             o1.transform.Child(o2.transform);
 
             GameObject f = new GameObject("Floor");
-            f.transform.position.x = 0;
-            f.transform.position.y = -2;
+            f.transform.position = new Vector3(0, -2, 0);
             f.transform.sizeDelta.x = 10;
             f.transform.sizeDelta.z = 10;
             MeshRender fm = f.AddComponent<MeshRender>();
@@ -96,40 +95,40 @@ namespace KENGINE_Editor
         private void OnUpdate()
         {
             Transform viewer = GameObject.Find("viewer").transform;
-            camRotX = Camera.main.gameObject.transform.localRotation.x;
-            camRotY = viewer.localRotation.y;
+            camRotX = Camera.main.gameObject.transform.localRotation.X;
+            camRotY = viewer.localRotation.Y;
             if (Input.GetKey(KeyCode.W))
             {
-                viewer.SetPosition(viewer.position.ToVector3() + viewer.forward * 0.5f);
+                viewer.position += Camera.main.gameObject.transform.forward * 0.5f;
             }
             else if (Input.GetKey(KeyCode.S))
             {
-                viewer.SetPosition(viewer.position.ToVector3() - viewer.forward * 0.5f);
+                viewer.position -= Camera.main.gameObject.transform.forward * 0.5f;
             }
             if (Input.GetKey(KeyCode.A))
             {
-                viewer.SetPosition(viewer.position.ToVector3() - viewer.right * 0.5f);
+                viewer.position -= viewer.right * 0.5f;
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                viewer.SetPosition(viewer.position.ToVector3() + viewer.right * 0.5f);
+                viewer.position += viewer.right * 0.5f;
             }
             if (Input.GetKey(KeyCode.E))
             {
-                viewer.SetPosition(viewer.position.ToVector3() + viewer.up * 0.5f);
+                viewer.position += Camera.main.gameObject.transform.up * 0.5f;
             }
             else if (Input.GetKey(KeyCode.Q))
             {
-                viewer.SetPosition(viewer.position.ToVector3() - viewer.up * 0.5f);
+                viewer.position -= Camera.main.gameObject.transform.up * 0.5f;
             }
 
 
             if (Input.GetMouseButton(KENGINE.MouseButton.Right))
             {
-                camRotY -= Input.GetMouseDeltaX() / 50;
-                camRotX += Input.GetMouseDeltaY() / 50;
-                viewer.localRotation.y = camRotY;
-                Camera.main.gameObject.transform.localRotation.x = camRotX;
+                camRotY -= Input.GetMouseDeltaX() / 5;
+                camRotX += Input.GetMouseDeltaY() / 5;
+                viewer.rotation = new Vector3(0, camRotY, 0);
+                Camera.main.gameObject.transform.localRotation = new Vector3(camRotX, 0, 0);
             }
 
             //General Update
@@ -189,7 +188,7 @@ namespace KENGINE_Editor
         {
             if (tabControl1.TabIndex == 1)
             {
-                Debug.WriteLine(e.KeyCode);
+                Debug.Log(e.KeyCode.ToString());
                 KeyCode k = (KeyCode)e.KeyValue;
                 if (Input.currentKeys.ContainsKey(k))
                 {
@@ -266,6 +265,10 @@ namespace KENGINE_Editor
         {
             Input.mouseX = e.X;
             Input.mouseY = e.Y;
+        }
+        public void Log(string message)
+        {
+            textBox1.Text = message + Environment.NewLine + textBox1.Text;
         }
     }
 }

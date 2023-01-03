@@ -10,7 +10,8 @@ namespace KENGINE
 {
     public class Transform : Component
     {
-        public Position position {
+        private Vector3 localP;
+        public Vector3 position {
             get
             {
                 if (parent == null)
@@ -19,16 +20,25 @@ namespace KENGINE
                 }
                 else
                 {
-                    Vector3 v = parent.position.ToVector3() + parent.rotation.ToQuaternion() * localPosition.ToVector3();
-                    return new Position(v.X, v.Y, v.Z);
+                    return parent.position + parent.GetQuaternion() * localPosition;
                 }
             }
             set
             {
-                localP = value;
+                if (parent == null)
+                {
+                    localP = value;
+                }
+                else
+                {
+                    localP = Quaternion.FromEulerAngles(
+                        (rotation.X - 360) / 180 * (float)Math.PI,
+                        (rotation.Y - 360) / 180 * (float)Math.PI,
+                        (rotation.Z - 360) / 180 * (float)Math.PI) * (value - parent.position);
+                }
             }
         }
-        public Position localPosition
+        public Vector3 localPosition
         {
             get
             {
@@ -39,40 +49,42 @@ namespace KENGINE
                 localP = value;
             }
         }
-        private Position localP = new Position(0, 0, 0);
 
 
-        public Rotation rotation
+        public Vector3 rotation
         {
             get
             {
                 if (parent == null)
                 {
-                    return localR;
+                    return localRotation;
                 }
                 else
                 {
-                    Vector3 v = (parent.rotation.ToQuaternion() * localR.ToQuaternion()).ToEulerAngles();
-                    return new Rotation(v.X, v.Y, v.Z);
+                    return (parent.GetQuaternion() * GetLocalQuaternion()).ToEulerAngles() * 180 / (float)Math.PI;
                 }
-            }
-            private set { }
-        }
-        public Rotation localRotation {
-            get
-            {
-                return localR;
             }
             set
             {
-                localR = value;
+                if (parent == null)
+                {
+                    localRotation = value;
+                }
+                else
+                {
+                    localRotation = Quaternion.FromEulerAngles(value.X, value.Y, value.Z) * Quaternion.FromEulerAngles(
+                        (parent.rotation.X - 360) / 180 * (float)Math.PI,
+                        (parent.rotation.Y - 360) / 180 * (float)Math.PI,
+                        (parent.rotation.Z - 360) / 180 * (float)Math.PI).ToEulerAngles() * 180 / (float)Math.PI;
+                }
             }
         }
-
-        private Rotation localR = new Rotation(0, 0, 0);
+        public Vector3 localRotation { get; set; }
 
 
         public SizeDelta sizeDelta = new SizeDelta(1, 1, 1);
+
+
         public Transform? parent = null;
         public List<Transform> childs { get; private set; } = new List<Transform>();
 
@@ -80,7 +92,7 @@ namespace KENGINE
         {
             get
             {
-                return Vector3.Normalize(rotation.ToQuaternion() * new Vector3(0, 0, 1));
+                return Vector3.Normalize(GetQuaternion() * new Vector3(0, 0, 1));
             }
             private set { }
         }
@@ -88,7 +100,7 @@ namespace KENGINE
         {
             get
             {
-                return Vector3.Normalize(rotation.ToQuaternion() *new Vector3(0, 1, 0));
+                return Vector3.Normalize(GetQuaternion() *new Vector3(0, 1, 0));
             }
             private set { }
         }
@@ -96,15 +108,17 @@ namespace KENGINE
         {
             get
             {
-                return Vector3.Normalize(rotation.ToQuaternion() * new Vector3(-1, 0, 0));
+                return Vector3.Normalize(GetQuaternion() * new Vector3(-1, 0, 0));
             }
             private set { }
         }
-        public void SetPosition(Vector3 v)
+        public Quaternion GetQuaternion()
         {
-            position.x = v.X;
-            position.y = v.Y;
-            position.z = v.Z;
+            return Quaternion.FromEulerAngles(rotation.X / 180 * (float)Math.PI, rotation.Y / 180 * (float)Math.PI, rotation.Z / 180 * (float)Math.PI);
+        }
+        public Quaternion GetLocalQuaternion()
+        {
+            return Quaternion.FromEulerAngles(localRotation.X / 180 * (float)Math.PI, localRotation.Y / 180 * (float)Math.PI, localRotation.Z / 180 * (float)Math.PI);
         }
         public bool HasChild()
         {
@@ -118,118 +132,6 @@ namespace KENGINE
         public Transform GetChild(int id)
         {
             return childs[id];
-        }
-    }
-    public class Position
-    {
-        public float x, y, z;
-        public Position(float x, float y, float z)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-        public Vector3 ToVector3()
-        {
-            return new Vector3(x, y, z);
-        }
-    }
-    public class Rotation
-    {
-        private float X,Y,Z;
-        
-        public float x
-        {
-            get
-            {
-                return X;
-            }
-            set
-            {
-                while (true)
-                {
-                    if (value > 180)
-                    {
-                        value -= 360;
-                    }
-                    else if (value < -180)
-                    {
-                        value += 360;
-                    }
-                    else
-                    {
-                        X = value;
-                        return;
-                    }
-                };
-            }
-        }
-        public float y
-        {
-            get
-            {
-                return Y;
-            }
-            set
-            {
-                while (true)
-                {
-                    if (value > 180)
-                    {
-                        value -= 360;
-                    }
-                    else if (value < -180)
-                    {
-                        value += 360;
-                    }
-                    else
-                    {
-                        Y = value;
-                        return;
-                    }
-                };
-            }
-        }
-        public float z
-        {
-            get
-            {
-                return Z;
-            }
-            set
-            {
-                while (true)
-                {
-                    if (value > 180)
-                    {
-                        value -= 360;
-                    }
-                    else if (value < -180)
-                    {
-                        value += 360;
-                    }
-                    else
-                    {
-                        Z = value;
-                        return;
-                    }
-                };
-            }
-        }
-        
-        public Rotation(float x, float y, float z)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-        public Quaternion ToQuaternion()
-        {
-            return Quaternion.FromEulerAngles(x, y, z);
-        }
-        public Vector3 ToEuler()
-        {
-            return new Vector3(x / 180 * (float)Math.PI, y / 180 * (float)Math.PI, z / 180 * (float)Math.PI);
         }
     }
     public class SizeDelta

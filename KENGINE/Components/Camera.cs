@@ -29,7 +29,7 @@ namespace KENGINE
                 GL.MatrixMode(MatrixMode.Modelview);
                 Transform t = gameObject.GetComponent<Transform>();
 
-                Vector3 position = t.position.ToVector3();
+                Vector3 position = t.position;
 
                 lookat = Matrix4.LookAt(position, position + t.forward, t.up);
                 GL.LoadMatrix(ref lookat);

@@ -17,14 +17,14 @@ namespace KENGINE
 
             string infoLogVert = GL.GetShaderInfoLog(vertexShader);
             if (infoLogVert != string.Empty)
-                Debug.WriteLine(infoLogVert);
+                Debug.Log(infoLogVert);
 
             GL.CompileShader(fragmentShader);
 
             string infoLogFrag = GL.GetShaderInfoLog(fragmentShader);
 
             if (infoLogFrag != string.Empty)
-                Debug.WriteLine(infoLogFrag);
+                Debug.Log(infoLogFrag);
 
             shaderProgram = GL.CreateProgram();
             GL.AttachShader(shaderProgram, vertexShader);
